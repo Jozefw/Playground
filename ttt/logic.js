@@ -10,14 +10,21 @@ var ttt = (function (my) {
         [0,3,6], [1,4,7], [2,5,8],  // vertical
         [0,4,8], [2,4,6]            // diagonal
       ],
+      startTime,
       myDataRef;
 
   	var init = function() {
       myDataRef = new Firebase('https://t-cubed.firebaseio.com/');
+      startTime = new Date();
+      startTime = startTime.valueOf();
 
-      myDataRef.on('child_added', function(snapshot) {
-        console.log('firebase got new data');
-      });
+      // myDataRef.on('child_added', function(snapshot) {
+      //   console.log('firebase got new data');
+      // });
+
+      myDataRef.set {startTime: [],
+
+      }
 
   		for ( var i = 0; i < 9; i++ ) {
   			board[i] = '';
@@ -90,8 +97,8 @@ var ttt = (function (my) {
   	runMain = function() {
       var madeMove = makeMove();
 
-      myDataRef.push( { board : board } );
-
+//      myDataRef.push( { board : board, player1 : "John", player2 : "Jane", gameTime: startTime  } );
+      myDataRef.update ( { gameTime: startTime, board : board, player1 : "John", player2 : "Jane" } );
   		my.display.showBoard( board );
   		win = checkForWin();
 
