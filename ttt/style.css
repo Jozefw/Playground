@@ -1,9 +1,19 @@
+	body {
+	background: 8C489F,
+	}
 
+	#board {
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    
+	}
 	.row {
 		height: 52px;
 		display: flex;
 	}
-
+	
+	
 	.row div {
 	display: inline-block;
 	width: 50px;
