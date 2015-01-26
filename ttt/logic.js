@@ -11,6 +11,7 @@ var ttt = (function (my) {
         [0,4,8], [2,4,6]            // diagonal
       ],
       startTime,
+      boards = [],
       myDataRef;
 
   	var init = function() {
@@ -22,9 +23,14 @@ var ttt = (function (my) {
       //   console.log('firebase got new data');
       // });
 
-      myDataRef.set {startTime: [],
+      // myDataRef.push({
+      //   game : { start: startTime, player1: 'John', player2: 'Sue' },
+      //   moves: []
+      // });
+      var o = {};
+      o[startTime] = { player1: 'John', player2: "Sue", board : '' };
+      myDataRef.update( o );
 
-      }
 
   		for ( var i = 0; i < 9; i++ ) {
   			board[i] = '';
@@ -95,10 +101,16 @@ var ttt = (function (my) {
   	}(),
 
   	runMain = function() {
-      var madeMove = makeMove();
+      var madeMove = makeMove(),
+          gameRef = myDataRef.child( startTime ),
+          bdCopy = board.slice();
 
 //      myDataRef.push( { board : board, player1 : "John", player2 : "Jane", gameTime: startTime  } );
-      myDataRef.update ( { gameTime: startTime, board : board, player1 : "John", player2 : "Jane" } );
+   //   myDataRef.update ( { gameTime: startTime, board : board, player1 : "John", player2 : "Jane" } );
+
+      boards.push(bdCopy);
+      gameRef.update( { board : boards } );
+
   		my.display.showBoard( board );
   		win = checkForWin();
 
