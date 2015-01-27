@@ -6,7 +6,7 @@ myDataRef.on('value', function(snapshot) {
 
 	var data = snapshot.val();
 
-	// console.log( data );
+	console.log( data );
 	
 	// console.log( Object.keys(data) );
 	// data.sort( function(a,b) { return b.gameTime - a.gameTime; } );
@@ -20,7 +20,7 @@ myDataRef.on('value', function(snapshot) {
 		$("select").append(s);
 
 	}
-
+// grab the selected game number and display game (use jquery)
 
 });
 
