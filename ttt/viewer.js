@@ -18,8 +18,9 @@ myDataRef.on('value', function(snapshot) {
 		d = new Date(gamePicked[i]*1).toLocaleString();
 		s = '<option value="' + d + '">' + d + '</option>'; 
 		$("select").append(s);
-
 	}
+	var m = $("#gameSelect option:selected").text();
+	console.log(m);
 // grab the selected game number and display game (use jquery)
 
 });
