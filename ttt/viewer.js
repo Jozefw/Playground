@@ -13,8 +13,10 @@ myDataRef.on('value', function(snapshot) {
   var gamePicked = Object.keys(data);
 
   var s;
+  var	d;
 	for ( var i = 0; i < gamePicked.length; i++ ) {
-		s = '<option value="' + gamePicked[i] + '">' + gamePicked[i] + '</option>'; 
+		d = new Date(gamePicked[i]*1).toLocaleString();
+		s = '<option value="' + d + '">' + d + '</option>'; 
 		$("select").append(s);
 
 	}
