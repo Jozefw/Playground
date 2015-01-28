@@ -1,23 +1,25 @@
-
-
 myDataRef = new Firebase('https://t-cubed.firebaseio.com/');
+var data,
+		chooseGame,
+		gamePicked;
 
 myDataRef.on('value', function(snapshot) {
-
-	var data = snapshot.val();
+	
+	data = snapshot.val();
 
 	console.log( data );
 	
 	// console.log( Object.keys(data) );
-	// data.sort( function(a,b) { return b.gameTime - a.gameTime; } );
-  var gamePicked = Object.keys(data);
-
+	
+  gamePicked = Object.keys(data);
+  console.log( "this is gamePicked " + gamePicked);
   var s;
   var	d;
+  var $select = $("select");
 	for ( var i = 0; i < gamePicked.length; i++ ) {
 		d = new Date(gamePicked[i]*1).toLocaleString();
 		s = '<option value="' + d + '">' + d + '</option>'; 
-		$("select").append(s);
+		$select.append(s);
 	}
 	
 });
@@ -28,7 +30,7 @@ var m = $("#gameSelect").change(function() {
 	$("select option:selected").each(function() {
 		str = str + $(this).text() + " ";
 	})
-	$("#choice").text(str);
-	console.log(m);
+	chooseGame = $("#choice").text(str);
+	
 });
 	
