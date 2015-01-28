@@ -19,9 +19,16 @@ myDataRef.on('value', function(snapshot) {
 		s = '<option value="' + d + '">' + d + '</option>'; 
 		$("select").append(s);
 	}
-	var m = $("#gameSelect option:selected").text();
-	console.log(m);
-// grab the selected game number and display game (use jquery)
-
+	
 });
-
+// grab the selected game number and display game (use jquery.. data object will have the board)
+// var m = $("#gameSelect option:selected").text();
+var m = $("#gameSelect").change(function() {
+	var str = "";
+	$("select option:selected").each(function() {
+		str = str + $(this).text() + " ";
+	})
+	$("#choice").text(str);
+	console.log(m);
+});
+	
