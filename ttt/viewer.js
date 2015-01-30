@@ -8,12 +8,10 @@ myDataRef.on('value', function(snapshot) {
 	data = snapshot.val();
 
 	console.log( data );
-	for ( i in data ) {
-		console.log(i, data[i].board[0]);
-	}
+	
 	
   gamePicked = Object.keys(data);
-  console.log( "this is gamePicked " + gamePicked);
+  console.log( "this are gamePicked " + gamePicked);
   var s;
   var	d;
   var $select = $("select");
@@ -30,22 +28,18 @@ var m = $("#gameSelect").change(function() {
 	$("select option:selected").each(function() {
 		str = str + $(this).text();
 	})
-	// display the chosen game to screen
-	chooseGame = $("#choice").text(str);
-	for ( var j = 0; j < data.length; j++ ) {
+
+	// compare the choice with the data object to get the board and display to screen	
+	// for ( var j = 0; j< data.length; j++ ) {
 		for ( key in data ) {
-			if ( data.hasOwnProperty( chooseGame )){
-				console.log(data[i].board[j]);
-				$("#boardChoice").append(data[i].board[j]);
+			if ( str === new Date(key*1).toLocaleString() ) {
+				boardDisplayed = data[key].board[0];
+				
 			}
-			
 		}
-	}
+	// } 	
 
-// compare the choice with the data object to get the board and display to screen	
-	
+	chooseGame = $("#choice").text(str + " " + boardDisplayed);
 
 	
-
-});
-	
+ });
