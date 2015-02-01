@@ -3,3 +3,12 @@ border: 1px solid black;
 height: 50px;
 width: 50px;
 }
+
+#nextMove{
+	height: 25px;
+	width: 75px;
+	border-radius: 5px;
+	border: 1px red solid;
+	text-align: center;
+	padding-top: 5px;
+}
