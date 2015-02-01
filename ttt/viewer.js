@@ -29,15 +29,13 @@ m = $("#gameSelect").change(function() {
 	str = str + $(this).val();
 })
 
-for ( var i = 0; i <= data[str].board.length-1; i++ ) {
+for ( var i = 0; i < data[str].board.length-1; i++ ) {
 	console.log(data[str].board.length);
 	for ( var j = 0; j < 9; j++ ) {		
 		if ( data[str].board[i][j] === "X" || data[str].board[i][j] === "O" ) {
 
-			function showMoves() {
-				$("#nextMove").click(function(){
 			  	$( "#"+[j]).text(data[str].board[i][j] );
-				});
+			
 			}
 		}
 	}
