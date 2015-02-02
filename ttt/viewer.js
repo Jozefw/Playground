@@ -6,9 +6,10 @@ var data,
 	gamePicked,
 	s,
 	d,
-	m,
-	t,
 	str,
+	temp,
+	$m,
+	$t,
 	$select = $("select");
 
 myDataRef.on('value', function(snapshot) {
@@ -22,21 +23,38 @@ myDataRef.on('value', function(snapshot) {
 	}
 });
 // grab the selected game number and display game
-m = $("#gameSelect").change(function() {
+$m = $("#gameSelect").change(function() {
 	str = "";
 	$("select option:selected").each(function() {
-	// date = date + $(this).html();
 	str = str + $(this).val();
 })
+console.log(data);
 
-for ( var i = 0; i < data[str].board.length; i++ ) {
-	for ( var j = 0; j < 9; j++ ) {		
-		if ( data[str].board[i][j] === "X" || data[str].board[i][j] === "O" ) {
-			t = $( "#"+[j] ).text(data[str].board[i][j] );
-			
+temp = 0;
+	for ( var j = 0; j < data[str].board.length; j++) {
+		if ( data[str].board[temp][j] === "X" || 
+			   data[str].board[temp][j] === "O" ) {
+			if ( temp < 9 ) { 
+				temp = temp + 1;
+			}
+		$t = $( "#"+j ).text(data[str].board[temp][j] );
 		}
-	}
+		
+		$("#nextMove").click(function() {
+		console.log("got next move");
+
+	});
 }
+
+
+// for ( var i = 0; i < data[str].board.length; i++ ) {
+// 	for ( var j = 0; j < 9; j++ ) {		
+// 		if ( data[str].board[i][j] === "X" || data[str].board[i][j] === "O" ) {
+// 			$t = $( "#"+j ).text(data[str].board[i][j] );
+			
+// 		}
+// 	}
+// }
 
 chooseGame = $("#choice").append( new Date(Number( str )).toLocaleString() );
 });
