@@ -1,5 +1,6 @@
-myDataRef = new Firebase('https://t-cubed.firebaseio.com/');
-var data,
+var myDataRef = new Firebase('https://t-cubed.firebaseio.com/');
+
+var	data,
 	chooseGame,
 	boardDisplayed,
 	date,
@@ -7,11 +8,65 @@ var data,
 	s,
 	d,
 	str,
-	temp,
-	$m,
-	$t,
-	$select = $("select");
+	snapshotIndex,
+	$select = $("select"),
+	$nextMove = $('#nextMove');
 
+
+function getWhichGametoShow () {
+	// Set up handler to grab the selected game to show 
+	$("#gameSelect").change(function() {
+		str = "";
+		$("select option:selected").each(function() {
+			str = str + $(this).val();
+		});
+		
+		$(this).off();  // handler for select box is not needed anymore.	
+
+		$("#choice").append( new Date(Number( str )).toLocaleString() );  // show what game was chosen
+
+		// Now we have which game to display as a key into 'data',
+		// let's show the first move immediately,
+		showMove(0);
+
+		// and then setup handler for user to click button for next moves
+		snapshotIndex = 1;
+		buttonHandler();
+	});
+}
+
+
+var showMove = function( index ) {
+	for ( var i = 0; i < 9; i++ ) {
+		// dont need to even check to see if its empty, 'x' or 'o', just do it.
+		$( "#" + i ).text( data[str].board[ index][i] );
+	}
+};
+
+var buttonHandler = function() {
+	$nextMove.on( 'click', advanceMove );
+};
+
+
+var advanceMove = function() {
+	if ( snapshotIndex < data[str].board.length ) {
+		showMove( snapshotIndex );
+		snapshotIndex += 1;
+	}
+	else {
+		// end of show
+		$nextMove.off();	// turn of handler for advance Move button
+		$nextMove.text('done');
+	}
+};
+
+
+/*
+ * main flow of the program starts here
+ */
+
+
+// First things first, set up handler to recieve all data from firebase
 myDataRef.on('value', function(snapshot) {
 	data = snapshot.val();
 	gamePicked = Object.keys(data);
@@ -21,41 +76,7 @@ myDataRef.on('value', function(snapshot) {
 		s = '<option value="' + ( gamePicked[i] * 1 ) + '">' + d + '</option>';
 		$select.append(s);
 	}
-});
-// grab the selected game number and display game
-$m = $("#gameSelect").change(function() {
-	str = "";
-	$("select option:selected").each(function() {
-	str = str + $(this).val();
-})
-console.log(data);
 
-temp = 0;
-function advanceMove() {
-	for ( var j = 0; j < data[str].board.length; j++) {
-		if ( data[str].board[temp][j] === "X" || 
-			   data[str].board[temp][j] === "O" ) {
-			if ( temp < 9 ) { 
-				temp = temp + 1;
-			}
-		$t = $( "#"+j ).text(data[str].board[temp][j] );
-		}
-	
-  }
-}
-$("#nextMove").click(function() {
-		console.log("got next move");
-		advanceMove();
-});
-
-// for ( var i = 0; i < data[str].board.length; i++ ) {
-// 	for ( var j = 0; j < 9; j++ ) {		
-// 		if ( data[str].board[i][j] === "X" || data[str].board[i][j] === "O" ) {
-// 			$t = $( "#"+j ).text(data[str].board[i][j] );
-			
-// 		}
-// 	}
-// }
-
-chooseGame = $("#choice").append( new Date(Number( str )).toLocaleString() );
+	// Got the data, showed the choice of games, now setup handler to let them choose
+	getWhichGametoShow();
 });
