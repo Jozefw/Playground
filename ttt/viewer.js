@@ -31,6 +31,7 @@ $m = $("#gameSelect").change(function() {
 console.log(data);
 
 temp = 0;
+function advanceMove() {
 	for ( var j = 0; j < data[str].board.length; j++) {
 		if ( data[str].board[temp][j] === "X" || 
 			   data[str].board[temp][j] === "O" ) {
@@ -39,13 +40,13 @@ temp = 0;
 			}
 		$t = $( "#"+j ).text(data[str].board[temp][j] );
 		}
-		
-		$("#nextMove").click(function() {
-		console.log("got next move");
-
-	});
+	
+  }
 }
-
+$("#nextMove").click(function() {
+		console.log("got next move");
+		advanceMove();
+});
 
 // for ( var i = 0; i < data[str].board.length; i++ ) {
 // 	for ( var j = 0; j < 9; j++ ) {		
