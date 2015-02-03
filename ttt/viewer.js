@@ -35,7 +35,6 @@ function getWhichGametoShow () {
 	});
 }
 
-
 var showMove = function( index ) {
 	for ( var i = 0; i < 9; i++ ) {
 		// dont need to even check to see if its empty, 'x' or 'o', just do it.
