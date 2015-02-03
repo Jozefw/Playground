@@ -19,18 +19,14 @@ var ttt = (function (my) {
       startTime = new Date();
       startTime = startTime.valueOf();
 
-      // myDataRef.on('child_added', function(snapshot) {
-      //   console.log('firebase got new data');
-      // });
+      myDataRef.on('child_added', function(snapshot) {
+        console.log('firebase got new data');
+        showLiveGame();
+      });
 
-      // myDataRef.push({
-      //   game : { start: startTime, player1: 'John', player2: 'Sue' },
-      //   moves: []
-      // });
       var o = {};
       o[startTime] = { player1: 'John', player2: "Sue", board : '' };
       myDataRef.update( o );
-
 
   		for ( var i = 0; i < 9; i++ ) {
   			board[i] = '';
@@ -38,6 +34,10 @@ var ttt = (function (my) {
 
   		my.display.showBoard( board );
   	},
+
+    var showLiveGame = function() {
+      
+    },
 
   	pickMove = function() {
   		var move;
