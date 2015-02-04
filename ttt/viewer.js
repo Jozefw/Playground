@@ -26,6 +26,7 @@ function getWhichGametoShow () {
 
 		$("#choice").append( new Date(Number( str )).toLocaleString() );  // show what game was chosen
 
+
 		// Now we have which game to display as a key into 'data',
 		// let's show the first move immediately,
 		showMove(0);
@@ -35,6 +36,7 @@ function getWhichGametoShow () {
 		buttonHandler();
 	});
 }
+$("#liveGame").on('click', showLiveGame );
 
 var showMove = function( index ) {
 	for ( var i = 0; i < 9; i++ ) {
@@ -43,6 +45,15 @@ var showMove = function( index ) {
 		$( "#" + i ).text( data[str].board[ index ][i] );
 	}
 };
+
+var showLiveGame = function() {
+	myDataRef.on('child_added', function(snapshot){
+	console.log( "child fired off" );
+  dataLive = snapshot.val();
+  console.log("child added " + dataLive);
+  $("#" + 20).text("p");
+});
+}
 
 var buttonHandler = function() {
 	$nextMove.on( 'click', advanceMove );
@@ -83,13 +94,3 @@ myDataRef.on('value', function(snapshot) {
 	getWhichGametoShow();
 });
 
-myDataRef.on('child_added', function(snapshot){
-	console.log( "child fired off" );
-	if ( snapshot.exists() !== true ) {
-		console.log("empty data in CHILD ADDED!!!!!");
-	}
-  dataLive = snapshot.val();
-  console.log(dataLive);
-  console.log("child added " + dataLive);
-  $("#" + 20).text("p");
-});

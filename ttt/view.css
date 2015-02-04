@@ -12,3 +12,12 @@ td {
   padding-top: 5px;
   border-radius: 5px;
 }
+
+#liveGame{
+  border: 1px solid blue;
+  height: 30px;
+  width: 75px;
+  text-align: center;
+  padding-top: 5px;
+  border-radius: 5px;
+}
