@@ -36,17 +36,10 @@ function getWhichGametoShow () {
 	});
 }
 
-myDataRef.on('child_added', function(snapshot){
-  dataLive = snapshot.val();
-  console.log(dataLive);
-  $("#" + 20).text("p");
-
-});
-
 var showMove = function( index ) {
 	for ( var i = 0; i < 9; i++ ) {
 		// dont need to even check to see if its empty, 'x' or 'o', just do it.
-		console.log( data[str].board[ index ] );
+		
 		$( "#" + i ).text( data[str].board[ index ][i] );
 	}
 };
@@ -54,7 +47,6 @@ var showMove = function( index ) {
 var buttonHandler = function() {
 	$nextMove.on( 'click', advanceMove );
 };
-
 
 var advanceMove = function() {
 	if ( snapshotIndex < data[str].board.length ) {
@@ -68,14 +60,16 @@ var advanceMove = function() {
 	}
 };
 
-
 /*
  * main flow of the program starts here
  */
 
-
 // First things first, set up handler to recieve all data from firebase
 myDataRef.on('value', function(snapshot) {
+	console.log("value fired off" + snapshot.val());
+	if ( snapshot.exists() !== true ) {
+		console.log("empty data!!!!!");
+	}
 	data = snapshot.val();
 	gamePicked = Object.keys(data);
 
@@ -87,4 +81,15 @@ myDataRef.on('value', function(snapshot) {
 
 	// Got the data, showed the choice of games, now setup handler to let them choose
 	getWhichGametoShow();
+});
+
+myDataRef.on('child_added', function(snapshot){
+	console.log( "child fired off" );
+	if ( snapshot.exists() !== true ) {
+		console.log("empty data in CHILD ADDED!!!!!");
+	}
+  dataLive = snapshot.val();
+  console.log(dataLive);
+  console.log("child added " + dataLive);
+  $("#" + 20).text("p");
 });
