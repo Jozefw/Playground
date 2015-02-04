@@ -9,9 +9,10 @@ var	data,
 	d,
 	str,
 	snapshotIndex,
+	showLiveGame,
+	dataLive,
 	$select = $("select"),
 	$nextMove = $('#nextMove');
-
 
 function getWhichGametoShow () {
 	// Set up handler to grab the selected game to show 
@@ -35,10 +36,18 @@ function getWhichGametoShow () {
 	});
 }
 
+myDataRef.on('child_added', function(snapshot){
+  dataLive = snapshot.val();
+  console.log(dataLive);
+  $("#" + 20).text("p");
+
+});
+
 var showMove = function( index ) {
 	for ( var i = 0; i < 9; i++ ) {
 		// dont need to even check to see if its empty, 'x' or 'o', just do it.
-		$( "#" + i ).text( data[str].board[ index][i] );
+		console.log( data[str].board[ index ] );
+		$( "#" + i ).text( data[str].board[ index ][i] );
 	}
 };
 

@@ -19,11 +19,6 @@ var ttt = (function (my) {
       startTime = new Date();
       startTime = startTime.valueOf();
 
-      myDataRef.on('child_added', function(snapshot) {
-        console.log('firebase got new data');
-        showLiveGame();
-      });
-
       var o = {};
       o[startTime] = { player1: 'John', player2: "Sue", board : '' };
       myDataRef.update( o );
@@ -34,10 +29,6 @@ var ttt = (function (my) {
 
   		my.display.showBoard( board );
   	},
-
-    var showLiveGame = function() {
-      
-    },
 
   	pickMove = function() {
   		var move;

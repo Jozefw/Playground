@@ -9,11 +9,9 @@ var ttt = (function (my, $) {
 		// });
 	}();
 
-
 	var clear = function() {	// public methods, part of the interface
 
 	},
-
 
 	// callback has to be a function passed in
 	getMove = function( callback ) {
