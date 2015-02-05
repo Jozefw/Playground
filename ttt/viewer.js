@@ -36,12 +36,10 @@ function getWhichGametoShow () {
 		buttonHandler();
 	});
 }
-$("#liveGame").on('click', showLiveGame );
 
 var showMove = function( index ) {
 	for ( var i = 0; i < 9; i++ ) {
 		// dont need to even check to see if its empty, 'x' or 'o', just do it.
-		
 		$( "#" + i ).text( data[str].board[ index ][i] );
 	}
 };
@@ -52,7 +50,7 @@ var showLiveGame = function() {
   dataLive = snapshot.val();
   console.log("child added " + dataLive);
   $("#" + 20).text("p");
-});
+  });
 }
 
 var buttonHandler = function() {
@@ -91,6 +89,9 @@ myDataRef.on('value', function(snapshot) {
 	}
 
 	// Got the data, showed the choice of games, now setup handler to let them choose
+
+ $("#liveGame").on('click', showLiveGame );
+
 	getWhichGametoShow();
 });
 
