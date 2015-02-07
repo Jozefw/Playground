@@ -11,6 +11,8 @@ var	data,
 	snapshotIndex,
 	showLiveGame,
 	dataLive,
+	gotFirstBatchOfData,
+	isLiveGame = false,
 	$select = $("select"),
 	$nextMove = $('#nextMove');
 
@@ -45,11 +47,15 @@ var showMove = function( index ) {
 };
 
 var showLiveGame = function() {
+	isLiveGame = true;
 	myDataRef.on('child_added', function(snapshot){
-	console.log( "child fired off" );
-  dataLive = snapshot.val();
-  console.log("child added " + dataLive);
-  $("#" + 20).text("p");
+		console.log( "child fired off" );
+		if ( gotFirstBatchOfData ) {
+
+			}
+  	dataLive = snapshot.val();
+  	console.log("child added " + dataLive);
+  	$("#" + 20).text("p");
   });
 }
 
@@ -90,7 +96,10 @@ myDataRef.on('value', function(snapshot) {
 
 	// Got the data, showed the choice of games, now setup handler to let them choose
 
- $("#liveGame").on('click', showLiveGame );
+	$("#liveGame").on('click', showLiveGame );
+
+
+	gotFirstBatchOfData = true;
 
 	getWhichGametoShow();
 });
