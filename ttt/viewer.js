@@ -51,7 +51,12 @@ var showLiveGame = function() {
 	myDataRef.on('child_added', function(snapshot){
 		console.log( "child fired off" );
   	dataLive = snapshot.val();
-  	$("#" + 20).text("p");
+  	$.each(dataLive.board[0], function ( key, value ) {
+  		console.log(key, value );
+  		if ( value === "X" || value === "O" ) {
+  			$("#" + ( 20 + key ) ).text( value );
+  		}
+  	})
   });
 }
 
@@ -92,9 +97,9 @@ myDataRef.on('value', function(snapshot) {
 	}
 
 	if ( gotFirstBatchOfData === true ) {
-
+		showLiveGame();
 	}
-	$("#liveGame").on('click', showLiveGame );
+	
 
 
 	
