@@ -35,3 +35,24 @@ $('#add-form').on('submit', function(event) {
     addItemToPage(itemDataFromServer)
   })
 })
+
+$('#list').on('click', '.complete-button', function(event) {
+  var item = $(event.target).parent()
+  var isItemCompleted = item.hasClass('completed')
+  var itemId = item.attr('data-id')
+
+  var updateRequest = $.ajax({
+    type: 'PUT',
+    url: "https://listalous.herokuapp.com/lists/YOUR-LIST-NAME-HERE/items/" + itemId,
+    data: { completed: !isItemCompleted }
+  })
+
+  updateRequest.done(function(itemData) {
+    if (itemData.completed) {
+      item.addClass('completed')
+    } else {
+      item.removeClass('completed')
+    }
+  })
+})
+
