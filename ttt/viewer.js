@@ -50,11 +50,7 @@ var showLiveGame = function() {
 	isLiveGame = true;
 	myDataRef.on('child_added', function(snapshot){
 		console.log( "child fired off" );
-		if ( gotFirstBatchOfData ) {
-
-			}
   	dataLive = snapshot.val();
-  	console.log("child added " + dataLive);
   	$("#" + 20).text("p");
   });
 }
@@ -87,6 +83,7 @@ myDataRef.on('value', function(snapshot) {
 	}
 	data = snapshot.val();
 	gamePicked = Object.keys(data);
+	gotFirstBatchOfData = true;
 
 	for ( var i = 0; i < gamePicked.length; i++ ) {
 		d = new Date(gamePicked[i]*1).toLocaleString();
@@ -94,12 +91,13 @@ myDataRef.on('value', function(snapshot) {
 		$select.append(s);
 	}
 
-	// Got the data, showed the choice of games, now setup handler to let them choose
+	if ( gotFirstBatchOfData === true ) {
 
+	}
 	$("#liveGame").on('click', showLiveGame );
 
 
-	gotFirstBatchOfData = true;
+	
 
 	getWhichGametoShow();
 });
