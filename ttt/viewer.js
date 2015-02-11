@@ -63,7 +63,6 @@ var showMove = function( index ) {
 // }
 
 
-
 showLiveGame = function () {
 	$.each(dataLive.board[counter], function ( key, value ) {
 		if ( value === "X" || value === "O" ) {
@@ -117,12 +116,15 @@ myDataRef.on('value', function(snapshot) {
 	}
 	// else {
 	getWhichGametoShow();
+
+	
 // }
 });
 
-myDataRef.on('child_added', function(snapshot) {
-	dataLive = snapshot.val();
-	console.log ('child fired off');
-	showLiveGame();
-});
+// myDataRef.on('child_added', function(snapshot) {
+// 	dataLive = snapshot.val();
+// 	console.log ('child fired off');
+
+// 	showLiveGame();
+// });
 
