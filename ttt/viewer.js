@@ -12,6 +12,7 @@ var	data,
 	showLiveGame,
 	dataLive,
 	gotFirstBatchOfData,
+	counter = 0,
 	isLiveGame = false,
 	$select = $("select"),
 	$nextMove = $('#nextMove');
@@ -27,7 +28,6 @@ function getWhichGametoShow () {
 		$(this).off();  // handler for select box is not needed anymore.	
 
 		$("#choice").append( new Date(Number( str )).toLocaleString() );  // show what game was chosen
-
 
 		// Now we have which game to display as a key into 'data',
 		// let's show the first move immediately,
@@ -46,18 +46,34 @@ var showMove = function( index ) {
 	}
 };
 
-var showLiveGame = function() {
-	isLiveGame = true;
-	myDataRef.on('child_added', function(snapshot){
-		console.log( "child fired off" );
-  	dataLive = snapshot.val();
-  	$.each(dataLive.board[0], function ( key, value ) {
-  		console.log(key, value );
-  		if ( value === "X" || value === "O" ) {
-  			$("#" + ( 20 + key ) ).text( value );
-  		}
-  	})
-  });
+// var showLiveGame = function() {
+// 	isLiveGame = true;
+// 	counter = 0;
+// 	myDataRef.on('child_added', function(snapshot){
+// 		console.log( "child fired off" );
+//   	dataLive = snapshot.val();
+// 	  	$.each(dataLive.board[0], function ( key, value ) {
+// 	  		console.log(dataLive.board.length);
+// 	  		if ( value === "X" || value === "O" ) {
+// 	  			$("#" + ( 20 + key ) ).text( value );
+// 	  			counter = counter + 1;
+// 	  		}
+// 	  	})
+//   });
+// }
+
+
+
+showLiveGame = function () {
+	$.each(dataLive.board[counter], function ( key, value ) {
+		if ( value === "X" || value === "O" ) {
+			$("#" + ( 20 + key )).text( value );
+				if ( counter < 9 ) {
+					counter++;
+				}
+				else { counter = 0 }
+		}
+	})
 }
 
 var buttonHandler = function() {
@@ -99,11 +115,14 @@ myDataRef.on('value', function(snapshot) {
 	if ( gotFirstBatchOfData === true ) {
 		showLiveGame();
 	}
-	
-
-
-	
-
+	// else {
 	getWhichGametoShow();
+// }
+});
+
+myDataRef.on('child_added', function(snapshot) {
+	dataLive = snapshot.val();
+	console.log ('child fired off');
+	showLiveGame();
 });
 
