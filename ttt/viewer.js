@@ -24,7 +24,6 @@ var buttonHandler = function() {
 
 var advanceMove = function () {
 	if ( snapShotIndex < data[str].board.length ) {
-		console.log(data[str].board.length )
 		showMove( snapShotIndex );
 		snapShotIndex += 1;
 	}
