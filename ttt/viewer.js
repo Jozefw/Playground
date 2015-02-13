@@ -93,8 +93,9 @@ myDataRef.on('value', function(snapshot) {
 		
 	}
 	showGameSelected();
- // if you select from select box run a certain function
- 	// or if you select live game button it runs another function or says no games
+ 	
+ 	$("#reset").on('click', reset);
+
 });
 
 
