@@ -98,27 +98,15 @@ var advanceMove = function() {
 // First things first, set up handler to recieve all data from firebase
 myDataRef.on('value', function(snapshot) {
 	console.log("value fired off" + snapshot.val());
-	if ( snapshot.exists() !== true ) {
-		console.log("empty data!!!!!");
-	}
+	
 	data = snapshot.val();
 	gamePicked = Object.keys(data);
-	gotFirstBatchOfData = true;
-
+	
 	for ( var i = 0; i < gamePicked.length; i++ ) {
 		d = new Date(gamePicked[i]*1).toLocaleString();
 		s = '<option value="' + ( gamePicked[i] * 1 ) + '">' + d + '</option>';
 		$select.append(s);
 	}
-
-	if ( gotFirstBatchOfData === true ) {
-		showLiveGame();
-	}
-	// else {
-	getWhichGametoShow();
-
-	
-// }
 });
 
 // myDataRef.on('child_added', function(snapshot) {
