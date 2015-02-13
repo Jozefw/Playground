@@ -9,14 +9,12 @@ var $tableTemplate = $("#tableTemplate"),
 		resetCounter,
 		d;
 
-
 $tableTemplate.hide();
 $nextMove.hide();
 
 function displayPrevGame() {
 	$tableTemplate.show().appendTo(".prerecorded");
 	$nextMove.show().appendTo('.prerecorded');
-
 };
 
 var buttonHandler = function() {
@@ -34,7 +32,6 @@ var advanceMove = function () {
 		$nextMove.text('done');
 	}
 };
-
 
 var showMove = function( index ) {
 	for ( var i = 0; i < 9; i++ ) {
@@ -60,42 +57,16 @@ function showGameSelected () {
 
 }
 
-var reset = function () {
+
 	myDataRef.on('value', function(snapshot) {
 	console.log("value fired off" + snapshot.val());
-	
 	data = snapshot.val();
 	gamePicked = Object.keys(data);
-	
-	for ( var i = 0; i < gamePicked.length; i++ ) {
-		d = new Date(gamePicked[i]*1).toLocaleString();
-		s = '<option value="' + ( gamePicked[i] * 1 ) + '">' + d + '</option>';
-		$select.append(s);
-		
-	}
+		for ( var i = 0; i < gamePicked.length; i++ ) {
+			d = new Date(gamePicked[i]*1).toLocaleString();
+			s = '<option value="' + ( gamePicked[i] * 1 ) + '">' + d + '</option>';
+			$select.append(s);
+		}
 	showGameSelected();
- // if you select from select box run a certain function
- 	// or if you select live game button it runs another function or says no games
-});
-
-}
-	
-myDataRef.on('value', function(snapshot) {
-	console.log("value fired off" + snapshot.val());
-	
-	data = snapshot.val();
-	gamePicked = Object.keys(data);
-	
-	for ( var i = 0; i < gamePicked.length; i++ ) {
-		d = new Date(gamePicked[i]*1).toLocaleString();
-		s = '<option value="' + ( gamePicked[i] * 1 ) + '">' + d + '</option>';
-		$select.append(s);
-		
-	}
-	showGameSelected();
- 	
- 	$("#reset").on('click', reset);
-
-});
-
+	});
 
