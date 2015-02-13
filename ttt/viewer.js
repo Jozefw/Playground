@@ -6,6 +6,7 @@ var $tableTemplate = $("#tableTemplate"),
 		snapShotIndex,
 		str,
 		s,
+		resetCounter,
 		d;
 
 
